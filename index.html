@@ -2397,6 +2397,265 @@ setTimeout(()=>{
 </script>
 </section>
 
+    <section data-tela="nova-solicitacao" class="hidden">
+  <div id="ns-mapa" class="fixed inset-0 bg-neutral-800 z-0 overflow-hidden">
+    <svg class="absolute inset-0 w-full h-full opacity-10" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <pattern id="ns-grid" width="60" height="60" patternUnits="userSpaceOnUse">
+          <path d="M 60 0 L 0 0 0 60" fill="none" stroke="white" stroke-width="0.5"/>
+        </pattern>
+      </defs>
+      <rect width="100%" height="100%" fill="url(#ns-grid)" />
+    </svg>
+    <div class="absolute inset-0 opacity-[0.03]" style="background-image: repeating-linear-gradient(0deg, transparent, transparent 40px, rgba(255,255,255,0.5) 40px, rgba(255,255,255,0.5) 41px), repeating-linear-gradient(90deg, transparent, transparent 40px, rgba(255,255,255,0.5) 40px, rgba(255,255,255,0.5) 41px);"></div>
+    <div class="absolute top-16 left-6 opacity-20">
+      <svg width="32" height="32" fill="none" stroke="white" stroke-width="2" viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+    </div>
+    <div class="absolute top-28 right-5 opacity-15">
+      <svg width="40" height="40" fill="none" stroke="white" stroke-width="1.5" viewBox="0 0 24 24"><circle cx="12" cy="10" r="3"/><path d="M12 21.7C17.3 17 20 13 20 10a8 8 0 1 0-16 0c0 3 2.7 7 8 11.7z"/></svg>
+    </div>
+    <div class="absolute top-20 right-14 opacity-10">
+      <svg width="28" height="28" fill="none" stroke="white" stroke-width="1.5" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
+    </div>
+    <div class="absolute bottom-48 left-8 opacity-15">
+      <svg width="36" height="36" fill="none" stroke="white" stroke-width="1.5" viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+    </div>
+    <div class="absolute bottom-32 right-10 opacity-10">
+      <svg width="24" height="24" fill="none" stroke="white" stroke-width="1.5" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+    </div>
+    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 opacity-30">
+      <svg width="60" height="60" viewBox="0 0 24 24" fill="#D4AF37">
+        <path d="M18.92 6.01C18.72 5.42 18.16 5 17.5 5h-11c-.66 0-1.21.42-1.42 1.01L3 12v8c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-1h12v1c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-8l-2.08-5.99zM6.5 16c-.83 0-1.5-.67-1.5-1.5S5.67 13 6.5 13s1.5.67 1.5 1.5S7.33 16 6.5 16zm11 0c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zM5 11l1.5-4.5h11L19 11H5z"/>
+      </svg>
+    </div>
+    <div class="absolute bottom-1/3 left-1/4 opacity-10">
+      <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#D4AF37" stroke-width="1.5"><circle cx="12" cy="12" r="3"/><path d="M12 2v4m0 12v4M2 12h4m12 0h4"/></svg>
+    </div>
+  </div>
+
+  <div class="relative z-10 flex flex-col min-h-[100dvh]">
+    <div class="flex items-center justify-between px-5 pt-12 pb-4">
+      <div>
+        <p class="text-xs font-medium uppercase tracking-widest text-neutral-400 font-body">Nova Solicitação</p>
+        <h1 class="text-lg font-bold text-white font-display mt-0.5">Chegou uma corrida!</h1>
+      </div>
+      <button onclick="nova_solicitacao_ignorar()" class="w-9 h-9 rounded-full bg-white/10 backdrop-blur-sm flex items-center justify-center active:scale-90 transition-transform" aria-label="Fechar solicitação">
+        <svg width="18" height="18" fill="none" stroke="white" stroke-width="2" viewBox="0 0 24 24"><path d="M18 6 6 18M6 6l12 12"/></svg>
+      </button>
+    </div>
+
+    <div class="flex-1 flex flex-col justify-end">
+      <div class="bg-white rounded-t-[28px] shadow-2xl shadow-black/40 px-5 pt-5 pb-8 animate-slideUp">
+        <div class="w-10 h-1 bg-neutral-300 rounded-full mx-auto mb-5"></div>
+
+        <div class="flex items-center justify-between mb-5">
+          <div class="flex items-center gap-3.5">
+            <div class="w-13 h-13 rounded-full bg-gradient-to-br from-yellow-400 to-yellow-600 flex items-center justify-center text-white font-bold text-base font-display shadow-lg shadow-yellow-500/20" style="width:52px;height:52px;">RL</div>
+            <div>
+              <p class="font-bold text-neutral-900 text-base font-display leading-tight">Ricardo Lins</p>
+              <div class="flex items-center gap-1 mt-1">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="#D4AF37"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.62L12 2 9.19 8.62 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                <span class="text-sm font-semibold text-neutral-700">4.8</span>
+                <span class="text-xs text-neutral-400 ml-0.5">(127 avaliações)</span>
+              </div>
+            </div>
+          </div>
+          <div class="text-right">
+            <div class="flex items-center gap-1.5 bg-neutral-100 rounded-full px-3 py-1.5">
+              <svg width="16" height="16" fill="none" stroke="#0A0A0A" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+              <span class="text-sm font-bold text-neutral-900 font-display">8 min</span>
+            </div>
+            <p class="text-xs text-neutral-500 mt-1.5 font-medium">2.3 km de distância</p>
+          </div>
+        </div>
+
+        <div class="flex items-center gap-2 mb-4">
+          <div class="flex flex-col items-center">
+            <div class="w-2.5 h-2.5 rounded-full bg-emerald-500"></div>
+            <div class="w-px h-5 bg-neutral-300"></div>
+            <div class="w-2.5 h-2.5 rounded-full bg-neutral-800 border-2 border-neutral-900"></div>
+          </div>
+          <div class="flex-1 space-y-4">
+            <div>
+              <p class="text-xs text-neutral-500 font-medium mb-0.5">Embarque</p>
+              <p class="text-sm text-neutral-900 font-medium leading-snug">Av. Paulista, 1578, Bela Vista</p>
+            </div>
+            <div>
+              <p class="text-xs text-neutral-500 font-medium mb-0.5">Destino</p>
+              <p class="text-sm text-neutral-900 font-medium leading-snug">R. Augusta, 289, Consolação — São Paulo, SP</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-neutral-50 rounded-2xl p-4 mb-5 border border-neutral-100">
+          <div class="flex items-center justify-between">
+            <div class="flex items-center gap-3">
+              <span class="bg-neutral-900 text-white text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-lg font-display">Black</span>
+              <div class="flex items-center gap-1">
+                <svg width="14" height="14" fill="none" stroke="#0A0A0A" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+                <span class="text-xs text-neutral-500 font-medium">~25 min de viagem</span>
+              </div>
+            </div>
+            <p class="text-xl font-bold text-neutral-900 font-display">R$ <span id="ns-valor-exibido">45</span>,<span id="ns-valor-centavos">90</span></p>
+          </div>
+        </div>
+
+        <div class="space-y-3">
+          <button onclick="nova_solicitacao_aceitar()" class="w-full bg-emerald-500 hover:bg-emerald-600 active:scale-[0.98] text-white font-bold text-base py-4 rounded-2xl transition-all font-display shadow-lg shadow-emerald-500/25 tracking-wide">
+            ACEITAR VIAGEM
+          </button>
+          <button onclick="nova_solicitacao_recusar()" class="w-full bg-white border-2 border-neutral-200 hover:border-red-300 hover:bg-red-50 active:scale-[0.98] text-neutral-700 hover:text-red-600 font-bold text-base py-4 rounded-2xl transition-all font-display tracking-wide">
+            Recusar Corrida
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="ns-toast-recebida" class="fixed top-4 left-1/2 -translate-x-1/2 z-50 bg-neutral-900 text-white px-5 py-3 rounded-2xl shadow-2xl flex items-center gap-3 transition-all duration-500 translate-y-[-120%] opacity-0">
+    <div class="w-8 h-8 rounded-full bg-emerald-500/20 flex items-center justify-center flex-shrink-0">
+      <svg width="16" height="16" fill="none" stroke="#10B981" stroke-width="2.5" viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg>
+    </div>
+    <div>
+      <p class="text-sm font-semibold font-display">Solicitação recebida</p>
+      <p class="text-xs text-neutral-400">Você tem 30 segundos para responder</p>
+    </div>
+  </div>
+</section>
+
+<script>
+  (function() {
+    const PULSE_KEY = 'ns-pulse-animation';
+    const TOAST_TIMEOUT = 4000;
+    let pulseInterval = null;
+    let toastTimeout = null;
+    let aceito = false;
+
+    function cancelTimers() {
+      if (pulseInterval) { clearInterval(pulseInterval); pulseInterval = null; }
+      if (toastTimeout) { clearTimeout(toastTimeout); toastTimeout = null; }
+    }
+
+    function stopPulse() {
+      cancelTimers();
+      document.querySelectorAll('[id="ns-mapa-pulse"]').forEach(function(el) {
+        el.style.animation = 'none';
+        el.offsetHeight;
+        el.style.animation = '';
+      });
+    }
+
+    function initPulse() {
+      if (pulseInterval) return;
+      let estado = 0;
+      pulseInterval = setInterval(function() {
+        estado++;
+        const pulse1 = document.getElementById('ns-mapa-pulse-1');
+        const pulse2 = document.getElementById('ns-mapa-pulse-2');
+        const pulse3 = document.getElementById('ns-mapa-pulse-3');
+        if (pulse1) pulse1.style.opacity = estado % 3 === 0 ? '0.6' : '0.2';
+        if (pulse2) pulse2.style.opacity = estado % 3 === 1 ? '0.5' : '0.1';
+        if (pulse3) pulse3.style.opacity = estado % 3 === 2 ? '0.4' : '0.05';
+      }, 800);
+    }
+
+    function showToast() {
+      const t = document.getElementById('ns-toast-recebida');
+      if (!t) return;
+      cancelTimers();
+      t.classList.remove('translate-y-[-120%]', 'opacity-0');
+      t.classList.add('translate-y-0', 'opacity-100');
+      toastTimeout = setTimeout(function() {
+        t.classList.add('translate-y-[-120%]', 'opacity-0');
+        t.classList.remove('translate-y-0', 'opacity-100');
+      }, TOAST_TIMEOUT);
+    }
+
+    function aceitarVisual() {
+      aceito = true;
+      stopPulse();
+      const btn = document.querySelector('#ns-mapa + div button');
+      const btns = document.querySelectorAll('#ns-mapa + div button');
+      if (btns[0]) {
+        btns[0].textContent = '✓ Viagem Aceita!';
+        btns[0].classList.remove('bg-emerald-500', 'hover:bg-emerald-600', 'shadow-emerald-500/25');
+        btns[0].classList.add('bg-neutral-900', 'text-white', 'cursor-default');
+        btns[0].disabled = true;
+      }
+      if (btns[1]) btns[1].style.display = 'none';
+      toast('Viagem aceita! Navegando até o passageiro.', 'ok');
+      setTimeout(function() { mostrarTela('viagem-em-andamento'); }, 1800);
+    }
+
+    window.nova_solicitacao_aceitar = function() {
+      if (aceito) return;
+      aceitarVisual();
+    };
+
+    window.nova_solicitacao_recusar = function() {
+      stopPulse();
+      const btns = document.querySelectorAll('#ns-mapa + div button');
+      if (btns[1]) {
+        btns[1].textContent = 'Corrida Recusada';
+        btns[1].classList.remove('border-neutral-200', 'text-neutral-700');
+        btns[1].classList.add('border-red-300', 'bg-red-50', 'text-red-600');
+        btns[1].disabled = true;
+      }
+      if (btns[0]) { btns[0].disabled = true; btns[0].classList.add('opacity-40'); }
+      toast('Corrida recusada. Aguardando novas solicitações.', 'info');
+      setTimeout(function() { mostrarTela('home-do-motorista'); }, 2000);
+    };
+
+    window.nova_solicitacao_ignorar = function() {
+      stopPulse();
+      toast('Solicitação descartada.', 'info');
+      setTimeout(function() { mostrarTela('home-do-motorista'); }, 1000);
+    };
+
+    window.nova_solicitacao_resetar = function() {
+      aceito = false;
+      cancelTimers();
+      const btns = document.querySelectorAll('#ns-mapa + div button');
+      if (btns[0]) {
+        btns[0].textContent = 'ACEITAR VIAGEM';
+        btns[0].disabled = false;
+        btns[0].classList.add('bg-emerald-500', 'hover:bg-emerald-600', 'shadow-emerald-500/25');
+        btns[0].classList.remove('bg-neutral-900', 'opacity-40');
+      }
+      if (btns[1]) {
+        btns[1].textContent = 'Recusar Corrida';
+        btns[1].disabled = false;
+        btns[1].classList.remove('border-red-300', 'bg-red-50', 'text-red-600');
+        btns[1].classList.add('border-neutral-200', 'text-neutral-700');
+        btns[1].style.display = '';
+      }
+    };
+
+    function onEnter() {
+      nova_solicitacao_resetar();
+      initPulse();
+      showToast();
+    }
+
+    function onExit() {
+      stopPulse();
+      const t = document.getElementById('ns-toast-recebida');
+      if (t) { t.classList.add('translate-y-[-120%]', 'opacity-0'); t.classList.remove('translate-y-0', 'opacity-100'); }
+    }
+
+    document.addEventListener('rota:entrada', function(e) {
+      if (e.detail && e.detail.tela === 'nova-solicitacao') onEnter();
+    });
+    document.addEventListener('rota:saida', function(e) {
+      if (e.detail && e.detail.tela === 'nova-solicitacao') onExit();
+    });
+
+    if (document.querySelector('[data-tela="nova-solicitacao"]') && !document.querySelector('[data-tela="nova-solicitacao"]').classList.contains('hidden')) {
+      onEnter();
+    }
+  })();
+</script>
+
     <!-- TELAS -->
 </main>
 
