@@ -1473,6 +1473,373 @@ body{font-family:'DM Sans',sans-serif;background:#111;display:flex;align-items:c
       </script>
     </section>
 
+    <section data-tela="historico-de-viagens" class="hidden">
+  <div class="px-5 pt-2 pb-6">
+    <div class="mb-5">
+      <h1 class="font-display text-2xl font-bold text-black tracking-tight">Histórico de Viagens</h1>
+      <p class="text-sm text-gray-500 mt-1 font-body">Suas corridas realizadas na plataforma</p>
+    </div>
+
+    <div class="flex gap-2 mb-4 overflow-x-auto pb-1 -mx-5 px-5 scrollbar-hide" style="scrollbar-width:none">
+      <button onclick="historico_de_viagens_filtrarMes('todos')" data-mes="todos" class="historico-mes-btn flex-shrink-0 px-4 py-2 rounded-full text-xs font-semibold font-body transition-all duration-200 bg-black text-white">Todos</button>
+      <button onclick="historico_de_viagens_filtrarMes('2026-01')" data-mes="2026-01" class="historico-mes-btn flex-shrink-0 px-4 py-2 rounded-full text-xs font-semibold font-body transition-all duration-200 bg-white text-gray-600 border border-gray-200 hover:border-gray-300">Janeiro</button>
+      <button onclick="historico_de_viagens_filtrarMes('2025-12')" data-mes="2025-12" class="historico-mes-btn flex-shrink-0 px-4 py-2 rounded-full text-xs font-semibold font-body transition-all duration-200 bg-white text-gray-600 border border-gray-200 hover:border-gray-300">Dezembro</button>
+      <button onclick="historico_de_viagens_filtrarMes('2025-11')" data-mes="2025-11" class="historico-mes-btn flex-shrink-0 px-4 py-2 rounded-full text-xs font-semibold font-body transition-all duration-200 bg-white text-gray-600 border border-gray-200 hover:border-gray-300">Novembro</button>
+      <button onclick="historico_de_viagens_filtrarMes('2025-10')" data-mes="2025-10" class="historico-mes-btn flex-shrink-0 px-4 py-2 rounded-full text-xs font-semibold font-body transition-all duration-200 bg-white text-gray-600 border border-gray-200 hover:border-gray-300">Outubro</button>
+    </div>
+
+    <div class="flex gap-2 mb-4">
+      <button onclick="historico_de_viagens_filtrarCategoria('todas')" data-cat="todas" class="historico-cat-btn flex-1 py-2 rounded-lg text-xs font-semibold font-body transition-all duration-200 bg-black text-white">Todas</button>
+      <button onclick="historico_de_viagens_filtrarCategoria('black')" data-cat="black" class="historico-cat-btn flex-1 py-2 rounded-lg text-xs font-semibold font-body transition-all duration-200 bg-gray-100 text-gray-600 hover:bg-gray-200">Black</button>
+      <button onclick="historico_de_viagens_filtrarCategoria('special')" data-cat="special" class="historico-cat-btn flex-1 py-2 rounded-lg text-xs font-semibold font-body transition-all duration-200 bg-gray-100 text-gray-600 hover:bg-gray-200">Special</button>
+      <button onclick="historico_de_viagens_filtrarCategoria('superesportivo')" data-cat="superesportivo" class="historico-cat-btn flex-1 py-2 rounded-lg text-xs font-semibold font-body transition-all duration-200 bg-gray-100 text-gray-600 hover:bg-gray-200">Super</button>
+    </div>
+
+    <div class="relative mb-4">
+      <svg class="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+      <input type="text" id="historico-busca" oninput="historico_de_viagens_buscar(this.value)" placeholder="Buscar por endereço..." class="w-full pl-10 pr-4 py-3 rounded-xl bg-white border border-gray-200 text-sm font-body text-gray-800 placeholder-gray-400 focus:outline-none focus:border-gray-400 focus:ring-1 focus:ring-gray-300 transition-all duration-200">
+    </div>
+
+    <div id="historico-stats" class="grid grid-cols-3 gap-3 mb-5">
+      <div class="bg-white rounded-xl p-3 border border-gray-100 text-center">
+        <p class="text-xs text-gray-500 font-body mb-1">Total</p>
+        <p id="stat-total" class="text-lg font-bold font-display text-black">12</p>
+        <p class="text-[10px] text-gray-400 font-body">viagens</p>
+      </div>
+      <div class="bg-white rounded-xl p-3 border border-gray-100 text-center">
+        <p class="text-xs text-gray-500 font-body mb-1">Gasto</p>
+        <p id="stat-valor" class="text-lg font-bold font-display text-black">R$ 4.8k</p>
+        <p class="text-[10px] text-gray-400 font-body">este mês</p>
+      </div>
+      <div class="bg-white rounded-xl p-3 border border-gray-100 text-center">
+        <p class="text-xs text-gray-500 font-body mb-1">Km</p>
+        <p id="stat-km" class="text-lg font-bold font-display text-black">386</p>
+        <p class="text-[10px] text-gray-400 font-body">percorridos</p>
+      </div>
+    </div>
+
+    <div id="historico-lista" class="space-y-3 mb-24"></div>
+
+    <div id="historico-vazio" class="hidden text-center py-16">
+      <svg class="w-16 h-16 mx-auto text-gray-300 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4"/></svg>
+      <p class="text-sm text-gray-500 font-body">Nenhuma viagem encontrada</p>
+      <p class="text-xs text-gray-400 font-body mt-1">Tente ajustar os filtros ou a busca</p>
+    </div>
+  </div>
+
+  <button onclick="mostrarTela('selecao-de-categoria')" class="active:scale-95 transition-all duration-200 fixed bottom-6 right-6 z-40 w-14 h-14 rounded-full bg-black text-white shadow-lg shadow-black/30 flex items-center justify-center hover:shadow-xl hover:shadow-black/40">
+    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
+  </button>
+</section>
+
+<script>
+(function(){
+  const viagens = [
+    {id:1,data:'2026-01-15',origem:'Av. Paulista, 1578 - Bela Vista',destino:'R. Oscar Freire, 234 - Jardins',valor:187.50,duracao:'28 min',km:14.2,categoria:'black',motorista:'Ricardo Mendes',veiculo:'BMW 750i',placa:'BRA2E19',avaliacao:4.9,formaPagamento:'Cartão de Crédito',cor:'#1a1a1a',modeloCor:'Preto Onyx',dataHora:'2026-01-15 09:32'},
+    {id:2,data:'2026-01-12',origem:'R. Haddock Lobo, 400 - Cerqueira César',destino:'Shopping Iguatemi - Av. Brg. Faria Lima, 2232',valor:156.90,duracao:'22 min',km:11.5,categoria:'special',motorista:'Fernando Almeida',veiculo:'Mercedes-Benz E350',placa:'BRA5G33',avaliacao:4.8,formaPagamento:'Cartão de Crédito',cor:'#2c2c2c',modeloCor:'Prata Estelar',dataHora:'2026-01-12 19:15'},
+    {id:3,data:'2026-01-10',origem:'Al. Itu, 700 - Jardim Paulista',destino:'R. Consolação, 2800 - Cerqueira César',valor:142.00,duracao:'19 min',km:9.8,categoria:'black',motorista:'Carlos Eduardo Souza',veiculo:'Audi A8L',placa:'BRA8K44',avaliacao:5.0,formaPagamento:'PIX',cor:'#111111',modeloCor:'Preto Fantasma',dataHora:'2026-01-10 14:08'},
+    {id:4,data:'2026-01-08',origem:'Av. Brigadeiro Faria Lima, 3900 - Itaim Bibi',destino:'R. Joaquim Floriano, 500 - Itaim Bibi',valor:210.00,duracao:'35 min',km:22.0,categoria:'superesportivo',motorista:'Lucas Andrade',veiculo:'Porsche 911 Carrera',placa:'BRA7S12',avaliacao:4.7,formaPagamento:'Cartão de Crédito',cor:'#8B0000',modeloCor:'Vermelho Carmim',dataHora:'2026-01-08 21:45'},
+    {id:5,data:'2025-12-28',origem:'R. da Consolação, 1000 - Consolação',destino:'Av. Rebouças, 3050 - Pinheiros',valor:98.70,duracao:'15 min',km:7.3,categoria:'special',motorista:'André Ferreira',veiculo:'Volvo S60',placa:'BRA3P88',avaliacao:4.6,formaPagamento:'PIX',cor:'#3a3a3a',modeloCor:'Cinza Titânio',dataHora:'2025-12-28 11:22'},
+    {id:6,data:'2025-12-20',origem:'Jockey Club - Av. Lineu de Paula Machado, 83',destino:'R. Estados Unidos, 1400 - Jardim América',valor:175.30,duracao:'25 min',km:16.1,categoria:'black',motorista:'Ricardo Mendes',veiculo:'BMW 750i',placa:'BRA2E19',avaliacao:4.9,formaPagamento:'Cartão de Crédito',cor:'#1a1a1a',modeloCor:'Preto Onyx',dataHora:'2025-12-20 17:50'},
+    {id:7,data:'2025-12-15',origem:'Av. Atlântica, 1500 - Copacabana, RJ',destino:'R. Barata Ribeiro, 320 - Copacabana, RJ',valor:132.80,duracao:'18 min',km:10.5,categoria:'black',motorista:'Marcelo Rocha',veiculo:'Range Rover Vogue',placa:'BRA9R55',avaliacao:4.8,formaPagamento:'Cartão de Crédito',cor:'#0d0d0d',modeloCor:'Preto Santorini',dataHora:'2025-12-15 08:30'},
+    {id:8,data:'2025-11-30',origem:'Av. Brigadeiro Luís Antônio, 5000',destino:'R. Bela Cintra, 1200 - Consolação',valor:165.40,duracao:'23 min',km:12.7,categoria:'special',motorista:'Paulo Henrique Lima',veiculo:'Mercedes-Benz C300',placa:'BRA6C21',avaliacao:4.5,formaPagamento:'PIX',cor:'#363636',modeloCor:'Cinza Grafite',dataHora:'2025-11-30 20:10'},
+    {id:9,data:'2025-11-18',origem:'Parque Ibirapuera - Portão Principal',destino:'Av. Nove de Julho, 5100 - Jardins',valor:198.90,duracao:'30 min',km:18.3,categoria:'superesportivo',motorista:'Rafael Torres',veiculo:'Ferrari F8 Tributo',placa:'BRA1F77',avaliacao:4.9,formaPagamento:'Cartão de Crédito',cor:'#CC0000',modeloCor:'Vermelho Racing',dataHora:'2025-11-18 16:42'},
+    {id:10,data:'2025-11-05',origem:'R. Peixoto Gomide, 150 - Jardins',destino:'Av. Brasil, 1500 - Jardim América',valor:112.60,duracao:'16 min',km:8.9,categoria:'black',motorista:'Carlos Eduardo Souza',veiculo:'Audi A8L',placa:'BRA8K44',avaliacao:4.7,formaPagamento:'PIX',cor:'#111111',modeloCor:'Preto Fantasma',dataHora:'2025-11-05 13:05'},
+    {id:11,data:'2025-10-22',origem:'Av. Pacaembu, 900 - Pacaembu',destino:'R. Cardoso de Almeida, 200 - Perdizes',valor:89.30,duracao:'12 min',km:6.2,categoria:'special',motorista:'André Ferreira',veiculo:'Volvo S60',placa:'BRA3P88',avaliacao:4.4,formaPagamento:'Dinheiro',cor:'#3a3a3a',modeloCor:'Cinza Titânio',dataHora:'2025-10-22 10:18'},
+    {id:12,data:'2025-10-08',origem:'R. Augusta, 2000 - Consolação',destino:'Av. Paulista, 900 - Bela Vista',valor:134.50,duracao:'20 min',km:11.0,categoria:'black',motorista:'Marcelo Rocha',veiculo:'Range Rover Vogue',placa:'BRA9R55',avaliacao:4.8,formaPagamento:'Cartão de Crédito',cor:'#0d0d0d',modeloCor:'Preto Santorini',dataHora:'2025-10-08 19:33'}
+  ];
+
+  let filtroMes = 'todos';
+  let filtroCat = 'todas';
+  let filtroBusca = '';
+  let expandedId = null;
+
+  function historico_de_viagens_getCatStyle(cat) {
+    if (cat === 'black') return {bg:'bg-black',text:'text-white',border:'border-black',label:'Black'};
+    if (cat === 'special') return {bg:'bg-gray-500',text:'text-white',border:'border-gray-500',label:'Special'};
+    return {bg:'bg-red-600',text:'text-white',border:'border-red-600',label:'SuperEsportivo'};
+  }
+
+  function historico_de_viagens_getCatDot(cat) {
+    if (cat === 'black') return '#1a1a1a';
+    if (cat === 'special') return '#6b7280';
+    return '#dc2626';
+  }
+
+  function historico_de_viagens_getMes(dataISO) {
+    return dataISO.substring(0, 7);
+  }
+
+  function historico_de_viagens_formatData(dataISO) {
+    const d = new Date(dataISO + 'T00:00:00');
+    const meses = ['jan.','fev.','mar.','abr.','mai.','jun.','jul.','ago.','set.','out.','nov.','dez.'];
+    return d.getDate() + ' ' + meses[d.getMonth()];
+  }
+
+  function historico_de_viagens_formatDataHora(dataHora) {
+    const [data,hora] = dataHora.split(' ');
+    return historico_de_viagens_formatData(data) + ' · ' + hora;
+  }
+
+  function historico_de_viagens_abreviarEndereco(end) {
+    const partes = end.split(',');
+    const rua = partes[0].trim();
+    const bairro = (partes[1] || '').trim();
+    const palavras = rua.split(' ');
+    if (palavras.length > 3) {
+      return palavras.slice(0, 3).join(' ') + '...';
+    }
+    if (rua.length > 25) return rua.substring(0, 25) + '...';
+    return rua;
+  }
+
+  function historico_de_viagens_abreviarEnderecoFull(end) {
+    const partes = end.split(',');
+    const rua = partes[0].trim();
+    if (rua.length > 35) return rua.substring(0, 35) + '...';
+    return rua;
+  }
+
+  function historico_de_viagens_getBairro(end) {
+    const partes = end.split(',');
+    return (partes[1] || '').trim();
+  }
+
+  function historico_de_viagens_filtrar() {
+    return viagens.filter(v => {
+      if (filtroMes !== 'todos' && historico_de_viagens_getMes(v.data) !== filtroMes) return false;
+      if (filtroCat !== 'todas' && v.categoria !== filtroCat) return false;
+      if (filtroBusca) {
+        const termo = filtroBusca.toLowerCase();
+        if (!v.origem.toLowerCase().includes(termo) && !v.destino.toLowerCase().includes(termo)) return false;
+      }
+      return true;
+    });
+  }
+
+  function historico_de_viagens_renderizar() {
+    const lista = document.getElementById('historico-lista');
+    const vazio = document.getElementById('historico-vazio');
+    const filtrados = historico_de_viagens_filtrar();
+
+    const totalFiltrados = filtrados.length;
+    const gastoFiltrado = filtrados.reduce((s, v) => s + v.valor, 0);
+    const kmFiltrado = filtrados.reduce((s, v) => s + v.km, 0);
+
+    document.getElementById('stat-total').textContent = totalFiltrados;
+    document.getElementById('stat-valor').textContent = 'R$ ' + (gastoFiltrado >= 1000 ? (gastoFiltrado / 1000).toFixed(1) + 'k' : gastoFiltrado.toFixed(0));
+    document.getElementById('stat-km').textContent = Math.round(kmFiltrado);
+
+    if (filtrados.length === 0) {
+      lista.innerHTML = '';
+      vazio.classList.remove('hidden');
+      return;
+    }
+    vazio.classList.add('hidden');
+
+    lista.innerHTML = filtrados.map(v => {
+      const catStyle = historico_de_viagens_getCatStyle(v.categoria);
+      const isExpanded = expandedId === v.id;
+      const avaliacaoEstrelas = '★'.repeat(Math.floor(v.avaliacao)) + (v.avaliacao % 1 >= 0.5 ? '½' : '');
+
+      return `
+        <div class="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden transition-all duration-300 cursor-pointer ${isExpanded ? 'ring-1 ring-gray-200 shadow-md' : 'hover:shadow-md'}" onclick="historico_de_viagens_toggle(${v.id})">
+          <div class="p-4">
+            <div class="flex items-center gap-3 mb-3">
+              <div class="flex-shrink-0 text-center w-14">
+                <p class="text-sm font-bold font-display" style="color:#D4AF37">${new Date(v.data+'T00:00:00').getDate()}</p>
+                <p class="text-[10px] uppercase tracking-wider text-gray-400 font-body">${['jan','fev','mar','abr','mai','jun','jul','ago','set','out','nov','dez'][new Date(v.data+'T00:00:00').getMonth()]} ${new Date(v.data+'T00:00:00').getFullYear()}</p>
+              </div>
+              <div class="flex-1 min-w-0">
+                <div class="flex items-center justify-between">
+                  <div class="flex items-center gap-1.5">
+                    <svg class="w-3.5 h-3.5 flex-shrink-0" style="color:${historico_de_viagens_getCatDot(v.categoria)}" fill="currentColor" viewBox="0 0 20 20"><circle cx="10" cy="10" r="4"/></svg>
+                    <p class="text-xs text-gray-700 font-body truncate">${historico_de_viagens_abreviarEndereco(v.origem)}</p>
+                  </div>
+                </div>
+                <div class="flex items-center gap-1.5 mt-1">
+                  <svg class="w-3 h-3 text-gray-300 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><circle cx="10" cy="10" r="4"/></svg>
+                  <p class="text-xs text-gray-500 font-body truncate">${historico_de_viagens_abreviarEndereco(v.destino)}</p>
+                </div>
+              </div>
+            </div>
+            <div class="flex items-center justify-between">
+              <div class="flex items-center gap-2">
+                <span class="inline-flex items-center px-2.5 py-1 rounded-lg text-[10px] font-bold font-body tracking-wide ${catStyle.bg} ${catStyle.text}">${catStyle.label}</span>
+                <span class="text-[10px] text-gray-400 font-body">${v.duracao} · ${v.km} km</span>
+              </div>
+              <div class="text-right">
+                <p class="text-sm font-bold font-display text-black">R$ ${v.valor.toFixed(2).replace('.',',')}</p>
+              </div>
+            </div>
+          </div>
+          <div class="overflow-hidden transition-all duration-300 ${isExpanded ? 'max-h-96' : 'max-h-0'}">
+            <div class="px-4 pb-4 pt-1 border-t border-gray-50" onclick="event.stopPropagation()">
+              <div class="flex items-center gap-3 mt-3 mb-3">
+                <div class="w-10 h-10 rounded-full flex items-center justify-center text-white text-sm font-bold font-display" style="background:${v.cor}">${v.motorista.split(' ').map(n=>n[0]).join('').substring(0,2)}</div>
+                <div>
+                  <p class="text-sm font-semibold font-body text-gray-800">${v.motorista}</p>
+                  <p class="text-xs text-gray-500 font-body">${avaliacaoEstrelas} ${v.avaliacao.toFixed(1)}</p>
+                </div>
+              </div>
+              <div class="bg-gray-50 rounded-xl p-3 mb-3">
+                <div class="flex items-center justify-between mb-2">
+                  <span class="text-xs text-gray-500 font-body">Veículo</span>
+                  <span class="text-xs font-semibold font-body text-gray-800">${v.veiculo}</span>
+                </div>
+                <div class="flex items-center justify-between mb-2">
+                  <span class="text-xs text-gray-500 font-body">Cor</span>
+                  <span class="text-xs font-body text-gray-800">${v.modeloCor}</span>
+                </div>
+                <div class="flex items-center justify-between mb-2">
+                  <span class="text-xs text-gray-500 font-body">Placa</span>
+                  <span class="text-xs font-bold font-body text-gray-800 tracking-wide">${v.placa}</span>
+                </div>
+                <div class="flex items-center justify-between mb-2">
+                  <span class="text-xs text-gray-500 font-body">Duração</span>
+                  <span class="text-xs font-body text-gray-800">${v.duracao}</span>
+                </div>
+                <div class="flex items-center justify-between mb-2">
+                  <span class="text-xs text-gray-500 font-body">Distância</span>
+                  <span class="text-xs font-body text-gray-800">${v.km} km</span>
+                </div>
+                <div class="flex items-center justify-between">
+                  <span class="text-xs text-gray-500 font-body">Pagamento</span>
+                  <span class="text-xs font-body text-gray-800">${v.formaPagamento}</span>
+                </div>
+              </div>
+              <div class="flex items-center gap-2 text-xs text-gray-400 mb-3 font-body">
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                <span>${historico_de_viagens_formatDataHora(v.dataHora)}</span>
+              </div>
+              <button onclick="event.stopPropagation();historico_de_viagens_verRecibo(${v.id})" class="active:scale-95 transition-all duration-200 w-full py-2.5 rounded-xl bg-black text-white text-xs font-semibold font-body flex items-center justify-center gap-2 hover:bg-gray-800">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+                Ver Recibo
+              </button>
+            </div>
+          </div>
+        </div>
+      `;
+    }).join('');
+  }
+
+  window.historico_de_viagens_toggle = function(id) {
+    expandedId = expandedId === id ? null : id;
+    historico_de_viagens_renderizar();
+  };
+
+  window.historico_de_viagens_filtrarMes = function(mes) {
+    filtroMes = mes;
+    expandedId = null;
+    document.querySelectorAll('.historico-mes-btn').forEach(btn => {
+      const m = btn.getAttribute('data-mes');
+      if (m === mes) {
+        btn.classList.remove('bg-white','text-gray-600','border','border-gray-200');
+        btn.classList.add('bg-black','text-white');
+      } else {
+        btn.classList.remove('bg-black','text-white');
+        btn.classList.add('bg-white','text-gray-600','border','border-gray-200');
+      }
+    });
+    historico_de_viagens_renderizar();
+  };
+
+  window.historico_de_viagens_filtrarCategoria = function(cat) {
+    filtroCat = cat;
+    expandedId = null;
+    document.querySelectorAll('.historico-cat-btn').forEach(btn => {
+      const c = btn.getAttribute('data-cat');
+      if (c === cat) {
+        btn.classList.remove('bg-gray-100','text-gray-600','hover:bg-gray-200');
+        btn.classList.add('bg-black','text-white');
+      } else {
+        btn.classList.remove('bg-black','text-white');
+        btn.classList.add('bg-gray-100','text-gray-600','hover:bg-gray-200');
+      }
+    });
+    historico_de_viagens_renderizar();
+  };
+
+  window.historico_de_viagens_buscar = function(valor) {
+    filtroBusca = valor.trim();
+    expandedId = null;
+    historico_de_viagens_renderizar();
+  };
+
+  window.historico_de_viagens_verRecibo = function(id) {
+    const v = viagens.find(x => x.id === id);
+    if (!v) return;
+    const catStyle = historico_de_viagens_getCatStyle(v.categoria);
+    const html = `
+      <div class="p-5">
+        <div class="flex items-center justify-between mb-4">
+          <div>
+            <p class="font-display text-lg font-bold text-black">Recibo de Viagem</p>
+            <p class="text-xs text-gray-500 font-body">#ISP-${String(v.id).padStart(6,'0')}</p>
+          </div>
+          <span class="inline-flex items-center px-3 py-1 rounded-lg text-xs font-bold font-body ${catStyle.bg} ${catStyle.text}">${catStyle.label}</span>
+        </div>
+        <div class="bg-gray-50 rounded-xl p-4 mb-4">
+          <div class="flex items-center gap-2 mb-3">
+            <svg class="w-4 h-4" style="color:#D4AF37" fill="currentColor" viewBox="0 0 20 20"><circle cx="10" cy="10" r="4"/></svg>
+            <div>
+              <p class="text-xs text-gray-500 font-body">Origem</p>
+              <p class="text-sm font-body text-gray-800">${v.origem}</p>
+            </div>
+          </div>
+          <div class="ml-2 border-l-2 border-gray-200 h-4"></div>
+          <div class="flex items-center gap-2 mt-1">
+            <svg class="w-4 h-4 text-gray-400" fill="currentColor" viewBox="0 0 20 20"><circle cx="10" cy="10" r="4"/></svg>
+            <div>
+              <p class="text-xs text-gray-500 font-body">Destino</p>
+              <p class="text-sm font-body text-gray-800">${v.destino}</p>
+            </div>
+          </div>
+        </div>
+        <div class="space-y-2 mb-4">
+          <div class="flex justify-between text-sm font-body">
+            <span class="text-gray-500">Data</span>
+            <span class="text-gray-800 font-medium">${historico_de_viagens_formatData(v.data)} às ${v.dataHora.split(' ')[1]}</span>
+          </div>
+          <div class="flex justify-between text-sm font-body">
+            <span class="text-gray-500">Motorista</span>
+            <span class="text-gray-800 font-medium">${v.motorista}</span>
+          </div>
+          <div class="flex justify-between text-sm font-body">
+            <span class="text-gray-500">Veículo</span>
+            <span class="text-gray-800 font-medium">${v.veiculo} · ${v.modeloCor}</span>
+          </div>
+          <div class="flex justify-between text-sm font-body">
+            <span class="text-gray-500">Placa</span>
+            <span class="text-gray-800 font-medium tracking-wide">${v.placa}</span>
+          </div>
+          <div class="flex justify-between text-sm font-body">
+            <span class="text-gray-500">Duração</span>
+            <span class="text-gray-800 font-medium">${v.duracao}</span>
+          </div>
+          <div class="flex justify-between text-sm font-body">
+            <span class="text-gray-500">Distância</span>
+            <span class="text-gray-800 font-medium">${v.km} km</span>
+          </div>
+          <div class="flex justify-between text-sm font-body">
+            <span class="text-gray-500">Pagamento</span>
+            <span class="text-gray-800 font-medium">${v.formaPagamento}</span>
+          </div>
+          <div class="border-t border-gray-200 pt-2 mt-2 flex justify-between">
+            <span class="text-sm font-bold font-body text-black">Total</span>
+            <span class="text-lg font-bold font-display text-black">R$ ${v.valor.toFixed(2).replace('.',',')}</span>
+          </div>
+        </div>
+        <button onclick="fecharModal();toast('Recibo enviado por e-mail','ok')" class="active:scale-95 transition-all duration-200 w-full py-3 rounded-xl bg-black text-white text-sm font-semibold font-body">Enviar Recibo por E-mail</button>
+      </div>
+    `;
+    abrirModal(html, 'Recibo da Viagem');
+  };
+
+  historico_de_viagens_renderizar();
+})();
+</script>
+
     <!-- TELAS -->
 </main>
 
