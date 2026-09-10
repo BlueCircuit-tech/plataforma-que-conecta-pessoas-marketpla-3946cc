@@ -75,7 +75,260 @@ body{font-family:'DM Sans',sans-serif;background:#111;display:flex;align-items:c
 </div>
 
 <main style="position:absolute;inset:0;padding-top:44px;padding-bottom:72px;overflow-y:auto;background:#FAFAFA" id="moldura-conteudo">
-<!-- TELAS -->
+<section data-tela="home-do-passageiro" class="hidden">
+      <div class="flex flex-col h-[100dvh] bg-black relative">
+        <!-- Mapa simulado -->
+        <div id="mapa-container" class="absolute inset-0 z-0">
+          <!-- Grid simulado de ruas -->
+          <svg class="w-full h-full opacity-20" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <pattern id="grid" width="60" height="60" patternUnits="userSpaceOnUse">
+                <path d="M 60 0 L 0 0 0 60" fill="none" stroke="#D4AF37" stroke-width="0.5" opacity="0.3"/>
+              </pattern>
+            </defs>
+            <rect width="100%" height="100%" fill="url(#grid)" />
+            <!-- Ruas principais -->
+            <line x1="0" y1="30%" x2="100%" y2="30%" stroke="#D4AF37" stroke-width="3" opacity="0.15"/>
+            <line x1="0" y1="55%" x2="100%" y2="55%" stroke="#D4AF37" stroke-width="3" opacity="0.15"/>
+            <line x1="0" y1="75%" x2="100%" y2="75%" stroke="#D4AF37" stroke-width="3" opacity="0.15"/>
+            <line x1="25%" y1="0" x2="25%" y2="100%" stroke="#D4AF37" stroke-width="2" opacity="0.12"/>
+            <line x1="50%" x1="50%" y2="100%" stroke="#D4AF37" stroke-width="3" opacity="0.15"/>
+            <line x1="70%" y1="0" x2="70%" y2="100%" stroke="#D4AF37" stroke-width="2" opacity="0.12"/>
+          </svg>
+          <!-- Veículos próximos (pins pretos com ícone de carro) -->
+          <div class="absolute top-[25%] left-[22%] animate-pulse">
+            <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+              <circle cx="14" cy="14" r="13" fill="#0A0A0A" stroke="#D4AF37" stroke-width="2"/>
+              <path d="M9 11h4l1.5 3h2l1.5-3.5c.8-.3 1.3-1 1.3-1.8 0-1.1-.9-2-2-2s-2 .9-2 2c0 .4.2.7.5 1L12 11h-1l-1 2.5c-.2.3-.3.5-.5.5H9l-.5-1c-.5-.5-.7-1.2-.7-2 0-1.7 1.3-3 3-3s3 1.3 3 3c0 .5-.2 1-.5 1.3L14 15h-1.5z" fill="#D4AF37" transform="scale(0.85) translate(2,2)"/>
+            </svg>
+          </div>
+          <div class="absolute top-[40%] left-[52%] animate-pulse" style="animation-delay:0.3s">
+            <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+              <circle cx="14" cy="14" r="13" fill="#0A0A0A" stroke="#D4AF37" stroke-width="2"/>
+              <path d="M9 11h4l1.5 3h2l1.5-3.5c.8-.3 1.3-1 1.3-1.8 0-1.1-.9-2-2-2s-2 .9-2 2c0 .4.2.7.5 1L12 11h-1l-1 2.5c-.2.3-.3.5-.5.5H9l-.5-1c-.5-.5-.7-1.2-.7-2 0-1.7 1.3-3 3-3s3 1.3 3 3c0 .5-.2 1-.5 1.3L14 15h-1.5z" fill="#D4AF37" transform="scale(0.85) translate(2,2)"/>
+            </svg>
+          </div>
+          <div class="absolute top-[60%] left-[68%] animate-pulse" style="animation-delay:0.6s">
+            <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+              <circle cx="14" cy="14" r="13" fill="#0A0A0A" stroke="#D4AF37" stroke-width="2"/>
+              <path d="M9 11h4l1.5 3h2l1.5-3.5c.8-.3 1.3-1 1.3-1.8 0-1.1-.9-2-2-2s-2 .9-2 2c0 .4.2.7.5 1L12 11h-1l-1 2.5c-.2.3-.3.5-.5.5H9l-.5-1c-.5-.5-.7-1.2-.7-2 0-1.7 1.3-3 3-3s3 1.3 3 3c0 .5-.2 1-.5 1.3L14 15h-1.5z" fill="#D4AF37" transform="scale(0.85) translate(2,2)"/>
+            </svg>
+          </div>
+          <!-- Pin dourado do usuário -->
+          <div class="absolute top-[48%] left-[40%]">
+            <svg width="44" height="56" viewBox="0 0 44 56" fill="none" class="animate-bounce" style="animation-duration:2s">
+              <ellipse cx="22" cy="52" rx="8" ry="3" fill="#D4AF37" opacity="0.3"/>
+              <path d="M22 4C14.8 4 9 9.8 9 17c0 10.5 13 33 13 33s13-22.5 13-33c0-7.2-5.8-13-13-13z" fill="#D4AF37" stroke="#0A0A0A" stroke-width="2"/>
+              <circle cx="22" cy="17" r="5" fill="#0A0A0A"/>
+              <text x="22" y="20" text-anchor="middle" fill="#D4AF37" font-size="7" font-weight="bold">U</text>
+            </svg>
+          </div>
+        </div>
+
+        <!-- Conteúdo sobreposto -->
+        <div class="relative z-10 flex flex-col h-[82%] mt-[2%]">
+          <!-- Cabeçalho com busca -->
+          <div class="px-4 pt-2 pb-3">
+            <div class="flex items-center justify-between mb-3">
+              <div>
+                <p class="text-white/60 text-xs font-body">Bom dia,</p>
+                <h1 class="text-white font-display text-lg font-semibold tracking-tight">Ricardo Mendes</h1>
+              </div>
+              <button onclick="mostrarTela('perfil-e-pagamento')" class="w-10 h-10 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 flex items-center justify-center active:scale-90 transition-transform">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#D4AF37" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7 3 9 3 9h6s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg>
+                <span id="notif-badge" class="absolute -mt-5 ml-3 w-2.5 h-2.5 bg-marca rounded-full hidden"></span>
+              </button>
+            </div>
+            <!-- Campo de busca -->
+            <button onclick="home_do_passageiro_abrirBusca()" class="w-full bg-white/95 backdrop-blur-sm rounded-2xl px-4 py-3.5 flex items-center gap-3 shadow-lg active:scale-[0.98] transition-all border border-white/50">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#0A0A0A" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+              <span class="text-neutral-400 font-body text-sm flex-1 text-left">Para onde você quer ir?</span>
+              <div class="w-8 h-8 rounded-full bg-marca/10 flex items-center justify-center">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0A0A0A" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+              </div>
+            </button>
+          </div>
+          <!-- Atalhos -->
+          <div class="flex gap-3 px-4 mt-1">
+            <button onclick="home_do_passageiro_atalhoCasa()" class="flex-1 bg-white/90 backdrop-blur-sm rounded-xl px-3 py-3 flex items-center gap-2.5 active:scale-95 transition-all border border-white/40">
+              <div class="w-9 h-9 rounded-lg bg-marca/10 flex items-center justify-center flex-shrink-0">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#0A0A0A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+              </div>
+              <div class="text-left">
+                <p class="text-xs text-neutral-400 font-body">Ir para</p>
+                <p class="text-sm font-semibold text-neutral-900 font-body leading-tight">Casa</p>
+              </div>
+            </button>
+            <button onclick="home_do_passageiro_atalhoTrabalho()" class="flex-1 bg-white/90 backdrop-blur-sm rounded-xl px-3 py-3 flex items-center gap-2.5 active:scale-95 transition-all border border-white/40">
+              <div class="w-9 h-9 rounded-lg bg-marca/10 flex items-center justify-center flex-shrink-0">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#0A0A0A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
+              </div>
+              <div class="text-left">
+                <p class="text-xs text-neutral-400 font-body">Ir para</p>
+                <p class="text-sm font-semibold text-neutral-900 font-body leading-tight">Trabalho</p>
+              </div>
+            </button>
+            <button onclick="home_do_passageiro_atalhoAeroporto()" class="flex-1 bg-white/90 backdrop-blur-sm rounded-xl px-3 py-3 flex items-center gap-2.5 active:scale-95 transition-all border border-white/40">
+              <div class="w-9 h-9 rounded-lg bg-marca/10 flex items-center justify-center flex-shrink-0">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#0A0A0A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.8 19.2 16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.5-.1 1 .3 1.2L9 12l-2 3H4l-1 1 3 2 2 3 1-1v-3l3-2 3.5 5.3c.3.4.8.5 1.3.3l.5-.2c.4-.3.6-.7.5-1.2z"/></svg>
+              </div>
+              <div class="text-left">
+                <p class="text-xs text-neutral-400 font-body">Ir para</p>
+                <p class="text-sm font-semibold text-neutral-900 font-body leading-tight">Aeroporto</p>
+              </div>
+            </button>
+          </div>
+          <!-- Espaço flexível para empurrar o card para baixo -->
+          <div class="flex-1"></div>
+        </div>
+
+        <!-- Card inferior com categorias -->
+        <div class="bg-white rounded-t-[28px] shadow-[0_-4px_30px_rgba(212,175,55,0.08)] px-5 pt-5 pb-3 z-20 border-t border-neutral-100">
+          <div class="w-10 h-1 bg-neutral-200 rounded-full mx-auto mb-4"></div>
+          <div class="flex items-center justify-between mb-4">
+            <h2 class="font-display text-base font-semibold text-neutral-900">Escolha a categoria</h2>
+            <button onclick="mostrarTela('selecao-de-categoria')" class="text-xs text-marca font-body font-medium hover:underline">Ver todas</button>
+          </div>
+          <div class="flex gap-3 overflow-x-auto pb-1 scrollbar-hide" style="scrollbar-width:none;-ms-overflow-style:none;">
+            <!-- Black -->
+            <button onclick="home_do_passageiro_selecionarCategoria('Black')" class="flex-shrink-0 w-[110px] bg-neutral-50 hover:bg-neutral-100 active:bg-neutral-200 border-2 border-marca rounded-2xl p-3 flex flex-col items-center gap-2 transition-all active:scale-95 group">
+              <div class="w-14 h-14 rounded-xl bg-gradient-to-br from-neutral-800 to-neutral-900 flex items-center justify-center shadow-md">
+                <svg width="32" height="32" viewBox="0 0 48 48" fill="none">
+                  <rect x="6" y="18" width="36" height="16" rx="6" fill="#D4AF37" opacity="0.9"/>
+                  <rect x="10" y="14" width="28" height="8" rx="3" fill="#D4AF37"/>
+                  <circle cx="13" cy="34" r="4" fill="#0A0A0A" stroke="#D4AF37" stroke-width="1.5"/>
+                  <circle cx="35" cy="34" r="4" fill="#0A0A0A" stroke="#D4AF37" stroke-width="1.5"/>
+                  <rect x="16" y="20" width="10" height="5" rx="1" fill="#0A0A0A" opacity="0.4"/>
+                  <rect x="28" y="20" width="6" height="5" rx="1" fill="#0A0A0A" opacity="0.4"/>
+                </svg>
+              </div>
+              <p class="text-xs font-semibold text-neutral-900 font-body">Black</p>
+              <p class="text-[11px] text-neutral-500 font-body">a partir de</p>
+              <p class="text-sm font-bold text-marca font-display">R$ 28</p>
+            </button>
+            <!-- Special -->
+            <button onclick="home_do_passageiro_selecionarCategoria('Special')" class="flex-shrink-0 w-[110px] bg-neutral-50 hover:bg-neutral-100 active:bg-neutral-200 border-2 border-transparent hover:border-marca/40 rounded-2xl p-3 flex flex-col items-center gap-2 transition-all active:scale-95 group">
+              <div class="w-14 h-14 rounded-xl bg-gradient-to-br from-neutral-700 to-neutral-800 flex items-center justify-center shadow-md">
+                <svg width="32" height="32" viewBox="0 0 48 48" fill="none">
+                  <rect x="4" y="16" width="40" height="18" rx="7" fill="#D4AF37" opacity="0.9"/>
+                  <rect x="8" y="12" width="32" height="8" rx="3" fill="#D4AF37"/>
+                  <circle cx="11" cy="34" r="5" fill="#0A0A0A" stroke="#D4AF37" stroke-width="1.5"/>
+                  <circle cx="37" cy="34" r="5" fill="#0A0A0A" stroke="#D4AF37" stroke-width="1.5"/>
+                  <rect x="14" y="18" width="14" height="6" rx="1" fill="#0A0A0A" opacity="0.4"/>
+                  <rect x="30" y="18" width="8" height="6" rx="1" fill="#0A0A0A" opacity="0.4"/>
+                  <rect x="36" y="19" width="4" height="4" rx="0.5" fill="#D4AF37" opacity="0.6"/>
+                </svg>
+              </div>
+              <p class="text-xs font-semibold text-neutral-900 font-body">Special</p>
+              <p class="text-[11px] text-neutral-500 font-body">a partir de</p>
+              <p class="text-sm font-bold text-marca font-display">R$ 45</p>
+            </button>
+            <!-- SuperEsportivo -->
+            <button onclick="home_do_passageiro_selecionarCategoria('SuperEsportivo')" class="flex-shrink-0 w-[110px] bg-neutral-50 hover:bg-neutral-100 active:bg-neutral-200 border-2 border-transparent hover:border-marca/40 rounded-2xl p-3 flex flex-col items-center gap-2 transition-all active:scale-95 group">
+              <div class="w-14 h-14 rounded-xl bg-gradient-to-br from-neutral-900 to-black flex items-center justify-center shadow-md border border-marca/30">
+                <svg width="32" height="32" viewBox="0 0 48 48" fill="none">
+                  <rect x="2" y="20" width="44" height="12" rx="5" fill="#D4AF37" opacity="0.9"/>
+                  <rect x="6" y="14" width="36" height="8" rx="3" fill="#D4AF37"/>
+                  <circle cx="9" cy="32" r="5" fill="#0A0A0A" stroke="#D4AF37" stroke-width="1.5"/>
+                  <circle cx="39" cy="32" r="5" fill="#0A0A0A" stroke="#D4AF37" stroke-width="1.5"/>
+                  <rect x="12" y="22" width="20" height="6" rx="1" fill="#0A0A0A" opacity="0.5"/>
+                  <path d="M34 22l3 3 2-1" stroke="#D4AF37" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+                  <circle cx="40" cy="22" r="2" fill="#D4AF37"/>
+                </svg>
+              </div>
+              <p class="text-xs font-semibold text-neutral-900 font-body">SuperEsportivo</p>
+              <p class="text-[11px] text-neutral-500 font-body">a partir de</p>
+              <p class="text-sm font-bold text-marca font-display">R$ 120</p>
+            </button>
+          </div>
+          <!-- Info de veículos próximos -->
+          <div class="flex items-center gap-2 mt-4 pt-3 border-t border-neutral-100">
+            <div class="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
+            <span class="text-xs text-neutral-500 font-body">12 motoristas próximos disponíveis</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <script>
+      function home_do_passageiro_abrirBusca() {
+        mostrarTela('nova-solicitacao');
+      }
+      function home_do_passageiro_atalhoCasa() {
+        const endereco = 'Rua Augusta, 2100 - Jardins, São Paulo - SP';
+        abrirModal(`
+          <div class="space-y-4">
+            <div class="flex items-center gap-3 p-3 bg-neutral-50 rounded-xl">
+              <div class="w-10 h-10 rounded-full bg-marca/10 flex items-center justify-center">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#D4AF37" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+              </div>
+              <div>
+                <p class="text-xs text-neutral-500 font-body">Casa</p>
+                <p class="text-sm font-semibold text-neutral-900 font-body">${endereco}</p>
+              </div>
+            </div>
+            <p class="text-sm text-neutral-600 font-body">Deseja solicitar uma corrida para <strong>${endereco}</strong>?</p>
+            <div class="flex gap-2">
+              <button onclick="fecharModal();home_do_passageiro_solicitarCorrida('${endereco}')" class="flex-1 bg-marca text-white font-body font-semibold py-3 rounded-xl active:scale-95 transition-all text-sm">Sim, solicitar</button>
+              <button onclick="fecharModal()" class="px-5 bg-neutral-100 text-neutral-700 font-body font-medium py-3 rounded-xl active:scale-95 transition-all text-sm">Cancelar</button>
+            </div>
+          </div>
+        `, 'Confirmar destino');
+      }
+      function home_do_passageiro_atalhoTrabalho() {
+        const endereco = 'Av. Paulista, 1100 - Bela Vista, São Paulo - SP';
+        abrirModal(`
+          <div class="space-y-4">
+            <div class="flex items-center gap-3 p-3 bg-neutral-50 rounded-xl">
+              <div class="w-10 h-10 rounded-full bg-marca/10 flex items-center justify-center">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#D4AF37" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
+              </div>
+              <div>
+                <p class="text-xs text-neutral-500 font-body">Trabalho</p>
+                <p class="text-sm font-semibold text-neutral-900 font-body">${endereco}</p>
+              </div>
+            </div>
+            <p class="text-sm text-neutral-600 font-body">Deseja solicitar uma corrida para <strong>${endereco}</strong>?</p>
+            <div class="flex gap-2">
+              <button onclick="fecharModal();home_do_passageiro_solicitarCorrida('${endereco}')" class="flex-1 bg-marca text-white font-body font-semibold py-3 rounded-xl active:scale-95 transition-all text-sm">Sim, solicitar</button>
+              <button onclick="fecharModal()" class="px-5 bg-neutral-100 text-neutral-700 font-body font-medium py-3 rounded-xl active:scale-95 transition-all text-sm">Cancelar</button>
+            </div>
+          </div>
+        `, 'Confirmar destino');
+      }
+      function home_do_passageiro_atalhoAeroporto() {
+        const endereco = 'Aeroporto de Guarulhos - GRU, Terminal 3, Guarulhos - SP';
+        abrirModal(`
+          <div class="space-y-4">
+            <div class="flex items-center gap-3 p-3 bg-neutral-50 rounded-xl">
+              <div class="w-10 h-10 rounded-full bg-marca/10 flex items-center justify-center">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#D4AF37" stroke-width="2"><path d="M17.8 19.2 16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.5-.1 1 .3 1.2L9 12l-2 3H4l-1 1 3 2 2 3 1-1v-3l3-2 3.5 5.3c.3.4.8.5 1.3.3l.5-.2c.4-.3.6-.7.5-1.2z"/></svg>
+              </div>
+              <div>
+                <p class="text-xs text-neutral-500 font-body">Aeroporto</p>
+                <p class="text-sm font-semibold text-neutral-900 font-body">${endereco}</p>
+              </div>
+            </div>
+            <p class="text-sm text-neutral-600 font-body">Deseja solicitar uma corrida para <strong>${endereco}</strong>?</p>
+            <div class="flex gap-2">
+              <button onclick="fecharModal();home_do_passageiro_solicitarCorrida('${endereco}')" class="flex-1 bg-marca text-white font-body font-semibold py-3 rounded-xl active:scale-95 transition-all text-sm">Sim, solicitar</button>
+              <button onclick="fecharModal()" class="px-5 bg-neutral-100 text-neutral-700 font-body font-medium py-3 rounded-xl active:scale-95 transition-all text-sm">Cancelar</button>
+            </div>
+          </div>
+        `, 'Confirmar destino');
+      }
+      function home_do_passageiro_selecionarCategoria(categoria) {
+        mostrarTela('selecao-de-categoria');
+      }
+      function home_do_passageiro_solicitarCorrida(destino) {
+        toast(`Corrida solicitada para ${destino}!`, 'ok');
+        setTimeout(() => {
+          mostrarTela('viagem-em-andamento');
+        }, 1500);
+      }
+    </script>
+
+    <!-- TELAS -->
 </main>
 
 <nav id="barra-navegacao">
