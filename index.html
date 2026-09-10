@@ -2656,6 +2656,381 @@ setTimeout(()=>{
   })();
 </script>
 
+    <section data-tela="painel-administrativo" class="hidden">
+  <div class="min-h-screen bg-gray-50 pb-6">
+    <div class="px-4 pt-5 pb-3">
+      <div class="flex items-center justify-between">
+        <div>
+          <h1 class="text-xl font-display font-bold text-marca-900">Painel Administrativo</h1>
+          <p class="text-xs text-gray-400 mt-0.5">Visão geral em tempo real</p>
+        </div>
+        <div class="flex items-center gap-2">
+          <span class="text-[10px] text-gray-400" id="relogio-painel"></span>
+          <span class="w-2 h-2 bg-green-400 rounded-full animate-pulse"></span>
+        </div>
+      </div>
+    </div>
+
+    <div class="px-4 grid grid-cols-2 gap-3">
+      <div class="card bg-white rounded-xl p-3.5 border border-gray-100 active:scale-[0.97] transition-transform cursor-pointer" onclick="painel_administrativo_abrirFiltro('passageiros')">
+        <div class="flex items-center justify-between mb-2">
+          <div class="w-8 h-8 rounded-lg bg-green-50 flex items-center justify-center">
+            <svg class="w-4 h-4 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+          </div>
+          <span class="text-[10px] font-medium text-green-500 bg-green-50 px-1.5 py-0.5 rounded-full">+3.2%</span>
+        </div>
+        <p class="text-[10px] text-gray-400 uppercase tracking-wider">Passageiros</p>
+        <p class="text-lg font-display font-bold text-marca-900 mt-0.5">12.847</p>
+        <p class="text-[10px] text-gray-400">ativos</p>
+      </div>
+
+      <div class="card bg-white rounded-xl p-3.5 border border-gray-100 active:scale-[0.97] transition-transform cursor-pointer" onclick="painel_administrativo_abrirFiltro('motoristas')">
+        <div class="flex items-center justify-between mb-2">
+          <div class="w-8 h-8 rounded-lg bg-blue-50 flex items-center justify-center">
+            <svg class="w-4 h-4 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"/></svg>
+          </div>
+          <span class="flex items-center gap-1 text-[10px] text-green-600 bg-green-50 px-1.5 py-0.5 rounded-full">
+            <span class="w-1.5 h-1.5 bg-green-400 rounded-full animate-pulse"></span>Online
+          </span>
+        </div>
+        <p class="text-[10px] text-gray-400 uppercase tracking-wider">Motoristas</p>
+        <p class="text-lg font-display font-bold text-marca-900 mt-0.5">384</p>
+        <p class="text-[10px] text-gray-400">agora online</p>
+      </div>
+
+      <div class="card bg-white rounded-xl p-3.5 border border-gray-100 active:scale-[0.97] transition-transform cursor-pointer" onclick="painel_administrativo_abrirFiltro('viagens')">
+        <div class="flex items-center justify-between mb-2">
+          <div class="w-8 h-8 rounded-lg bg-[#D4AF37]/10 flex items-center justify-center">
+            <svg class="w-4 h-4 text-[#D4AF37]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7"/></svg>
+          </div>
+          <span class="text-[10px] font-medium text-green-500 bg-green-50 px-1.5 py-0.5 rounded-full">+12.5%</span>
+        </div>
+        <p class="text-[10px] text-gray-400 uppercase tracking-wider">Viagens</p>
+        <p class="text-lg font-display font-bold text-marca-900 mt-0.5">1.293</p>
+        <p class="text-[10px] text-gray-400">hoje</p>
+      </div>
+
+      <div class="card bg-gradient-to-br from-[#D4AF37]/5 to-[#D4AF37]/10 rounded-xl p-3.5 border border-[#D4AF37]/20 active:scale-[0.97] transition-transform cursor-pointer" onclick="painel_administrativo_abrirFiltro('financeiro')">
+        <div class="flex items-center justify-between mb-2">
+          <div class="w-8 h-8 rounded-lg bg-[#D4AF37]/15 flex items-center justify-center">
+            <svg class="w-4 h-4 text-[#D4AF37]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+          </div>
+          <span class="text-[10px] font-medium text-[#D4AF37] bg-[#D4AF37]/10 px-1.5 py-0.5 rounded-full">+8.1%</span>
+        </div>
+        <p class="text-[10px] text-gray-400 uppercase tracking-wider">Faturamento</p>
+        <p class="text-lg font-display font-bold text-[#D4AF37] mt-0.5">R$ 892.450</p>
+        <p class="text-[10px] text-gray-400">este mês</p>
+      </div>
+    </div>
+
+    <div class="px-4 mt-5">
+      <div class="card bg-white rounded-xl border border-gray-100 p-4">
+        <div class="flex items-center justify-between mb-4">
+          <div>
+            <h2 class="text-sm font-display font-bold text-marca-900">Volume de Viagens</h2>
+            <p class="text-[10px] text-gray-400 mt-0.5">Últimos 7 dias</p>
+          </div>
+          <div class="flex gap-3 text-[10px]">
+            <span class="flex items-center gap-1"><span class="w-2.5 h-0.5 bg-[#D4AF37] rounded"></span>Viagens</span>
+            <span class="flex items-center gap-1"><span class="w-2.5 h-0.5 bg-gray-200 rounded"></span>Canceladas</span>
+          </div>
+        </div>
+        <svg class="w-full" viewBox="0 0 340 140" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="areaGrad" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#D4AF37" stop-opacity="0.15"/>
+              <stop offset="100%" stop-color="#D4AF37" stop-opacity="0"/>
+            </linearGradient>
+          </defs>
+          <line x1="30" y1="10" x2="330" y2="10" stroke="#F3F4F6" stroke-width="1"/>
+          <line x1="30" y1="38" x2="330" y2="38" stroke="#F3F4F6" stroke-width="1"/>
+          <line x1="30" y1="66" x2="330" y2="66" stroke="#F3F4F6" stroke-width="1"/>
+          <line x1="30" y1="94" x2="330" y2="94" stroke="#F3F4F6" stroke-width="1"/>
+          <line x1="30" y1="122" x2="330" y2="122" stroke="#E5E7EB" stroke-width="1"/>
+          <text x="20" y="14" text-anchor="end" class="text-[7px]" fill="#9CA3AF" font-size="7">250</text>
+          <text x="20" y="42" text-anchor="end" class="text-[7px]" fill="#9CA3AF" font-size="7">200</text>
+          <text x="20" y="70" text-anchor="end" class="text-[7px]" fill="#9CA3AF" font-size="7">150</text>
+          <text x="20" y="98" text-anchor="end" class="text-[7px]" fill="#9CA3AF" font-size="7">100</text>
+          <text x="20" y="126" text-anchor="end" class="text-[7px]" fill="#9CA3AF" font-size="7">0</text>
+          <polyline points="30,90 87,74 144,82 201,52 258,60 315,34" fill="url(#areaGrad)" stroke="none"/>
+          <polyline points="30,90 87,74 144,82 201,52 258,60 315,34" fill="none" stroke="#D4AF37" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          <polyline points="30,108 87,104 144,110 201,102 258,106 315,98" fill="none" stroke="#D1D5DB" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="4,3"/>
+          <circle cx="30" cy="90" r="3.5" fill="#D4AF37" stroke="white" stroke-width="1.5"/>
+          <circle cx="87" cy="74" r="3.5" fill="#D4AF37" stroke="white" stroke-width="1.5"/>
+          <circle cx="144" cy="82" r="3.5" fill="#D4AF37" stroke="white" stroke-width="1.5"/>
+          <circle cx="201" cy="52" r="3.5" fill="#D4AF37" stroke="white" stroke-width="1.5"/>
+          <circle cx="258" cy="60" r="3.5" fill="#D4AF37" stroke="white" stroke-width="1.5"/>
+          <circle cx="315" cy="34" r="3.5" fill="#D4AF37" stroke="white" stroke-width="1.5"/>
+          <text x="30" y="138" text-anchor="middle" fill="#9CA3AF" font-size="8">Seg</text>
+          <text x="87" y="138" text-anchor="middle" fill="#9CA3AF" font-size="8">Ter</text>
+          <text x="144" y="138" text-anchor="middle" fill="#9CA3AF" font-size="8">Qua</text>
+          <text x="201" y="138" text-anchor="middle" fill="#9CA3AF" font-size="8">Qui</text>
+          <text x="258" y="138" text-anchor="middle" fill="#9CA3AF" font-size="8">Sex</text>
+          <text x="315" y="138" text-anchor="middle" fill="#9CA3AF" font-size="8">Sáb</text>
+        </svg>
+        <div class="grid grid-cols-3 gap-2 mt-3 pt-3 border-t border-gray-50">
+          <div class="text-center">
+            <p class="text-xs font-bold text-marca-900">1.293</p>
+            <p class="text-[9px] text-gray-400">Total hoje</p>
+          </div>
+          <div class="text-center">
+            <p class="text-xs font-bold text-green-500">96.4%</p>
+            <p class="text-[9px] text-gray-400">Taxa conclusão</p>
+          </div>
+          <div class="text-center">
+            <p class="text-xs font-bold text-red-400">23</p>
+            <p class="text-[9px] text-gray-400">Cancelamentos</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="px-4 mt-5">
+      <div class="flex items-center justify-between mb-3">
+        <h2 class="text-sm font-display font-bold text-marca-900">Viagens em Tempo Real</h2>
+        <span class="text-[10px] text-gray-400" id="contador-viagens-tempo-real">12 ativas</span>
+      </div>
+      <div class="flex gap-2 mb-3">
+        <div class="flex-1 relative">
+          <svg class="w-3.5 h-3.5 text-gray-300 absolute left-2.5 top-1/2 -translate-y-1/2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+          <input type="text" id="busca-viagens" placeholder="Buscar viagem..." class="w-full text-xs pl-8 pr-3 py-2 bg-white border border-gray-200 rounded-lg focus:outline-none focus:border-[#D4AF37] focus:ring-1 focus:ring-[#D4AF37]/20 transition-all" oninput="painel_administrativo_buscarViagens()">
+        </div>
+        <select id="filtro-status-viagens" class="text-xs px-2 py-2 bg-white border border-gray-200 rounded-lg focus:outline-none focus:border-[#D4AF37] transition-all appearance-none" onchange="painel_administrativo_buscarViagens()">
+          <option value="todos">Todos</option>
+          <option value="em andamento">Em andamento</option>
+          <option value="concluída">Concluída</option>
+          <option value="pendente">Pendente</option>
+          <option value="cancelada">Cancelada</option>
+        </select>
+      </div>
+      <div id="lista-viagens-painel" class="space-y-2"></div>
+      <div id="vazio-viagens" class="hidden text-center py-8">
+        <svg class="w-10 h-10 text-gray-200 mx-auto mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+        <p class="text-xs text-gray-400">Nenhuma viagem encontrada</p>
+      </div>
+    </div>
+  </div>
+
+  <div id="modal-viagem-detalhe" class="fixed inset-0 z-50 hidden">
+    <div class="absolute inset-0 bg-black/40 backdrop-blur-sm" onclick="fecharModal()"></div>
+    <div class="absolute bottom-0 left-0 right-0 bg-white rounded-t-2xl max-h-[75%] overflow-y-auto" id="conteudo-modal-viagem"></div>
+  </div>
+
+  <div id="modal-detalhe-passageiro" class="fixed inset-0 z-50 hidden">
+    <div class="absolute inset-0 bg-black/40 backdrop-blur-sm" onclick="fecharModal()"></div>
+    <div class="absolute bottom-0 left-0 right-0 bg-white rounded-t-2xl max-h-[75%] overflow-y-auto p-5" id="conteudo-modal-passageiro"></div>
+  </div>
+</section>
+
+<script>
+(function(){
+  const dadosViagens = [
+    {id:"VX-28471",passageiro:"Lucas Mendes",tel:"(11) 98765-4321",origem:"Av. Paulista, 1578 - Bela Vista",destino:"Rua Oscar Freire, 289 - Jardins",motorista:"Roberto Almeida",veiculo:"BMW 530i M Sport",placa:"BRA2E19",cor:"Preto",cat:"Black",valor:142.50,tempo:"18 min",dist:"8.2 km",status:"em andamento",data:"2025-01-15T14:32:00",avaliacao:4.9},
+    {id:"VX-28470",passageiro:"Camila Rocha",tel:"(11) 97654-3210",origem:"Rua da Consolação, 2450 - Consolação",destino:"Shopping Iguatemi - Vila Nova Conceição",motorista:"Fernando Souza",veiculo:"Audi A6 55 TFSI",placa:"BRA3F45",cor:"Branco Pérola",cat:"Special",valor:189.00,tempo:"25 min",dist:"12.1 km",status:"em andamento",data:"2025-01-15T14:28:00",avaliacao:4.8},
+    {id:"VX-28469",passageiro:"Marcos Oliveira",tel:"(11) 96543-2109",origem:"Alameda Lorena, 156 - Jardins",destino:"Aeroporto de Congonhas - Terminal 1",motorista:"André Silva",veiculo:"Porsche 911 Carrera",placa:"BRA8K12",cor:"Verde Mimetizado",cat:"Superesportivo",valor:420.00,tempo:"35 min",dist:"15.7 km",status:"em andamento",data:"2025-01-15T14:15:00",avaliacao:5.0},
+    {id:"VX-28468",passageiro:"Patrícia Andrade",tel:"(11) 95432-1098",origem:"Rua Augusta, 500 - Consolação",destino:"Av. Brigadeiro Faria Lima, 2232 - Pinheiros",motorista:"Ricardo Pereira",veiculo:"Mercedes-Benz C300 AMG Line",placa:"BRA5D78",cor:"Prata",cat:"Black",valor:78.90,tempo:"12 min",dist:"4.5 km",status:"concluída",data:"2025-01-15T14:00:00",avaliacao:4.7},
+    {id:"VX-28467",passageiro:"Rafael Costa",tel:"(11) 94321-0987",origem:"Rua Haddock Lobo, 350 - Cerqueira César",destino:"Hotel Fasano - Rua Vitório Fasano, 88",motorista:"Paulo Henrique",veiculo:"Range Rover Sport HSE",placa:"BRA7G33",cor:"Preto",cat:"Special",valor:215.00,tempo:"20 min",dist:"9.8 km",status:"concluída",data:"2025-01-15T13:45:00",avaliacao:4.6},
+    {id:"VX-28466",passageiro:"Isabela Martins",tel:"(11) 93210-9876",origem:"Shopping Eldorado - Av. Rebouças, 3970",destino:"Rua Nove de Julho, 5400 - Jardim Europa",motorista:"—",veiculo:"—",placa:"—",cor:"—",cat:"Black",valor:95.00,tempo:"15 min",dist:"6.3 km",status:"pendente",data:"2025-01-15T14:35:00",avaliacao:0},
+    {id:"VX-28465",passageiro:"Thiago Barbosa",tel:"(11) 92109-8765",origem:"Av. Europa, 423 - Jardim Europa",destino:"Rua Bela Cintra, 1450 - Consolação",motorista:"Carlos Eduardo",veiculo:"BMW X5 xDrive40i",placa:"BRA1A56",cor:"Azul",cat:"Black",valor:112.30,tempo:"16 min",dist:"7.1 km",status:"concluída",data:"2025-01-15T13:20:00",avaliacao:4.8},
+    {id:"VX-28464",passageiro:"Daniela Ferreira",tel:"(11) 91098-7654",origem:"Rua Pamplona, 686 - Jardim Europa",destino:"Av. Morumbi, 8200 - Morumbi",motorista:"João Batista",veiculo:"Volvo XC90 Inscription",placa:"BRA4B89",cor:"Cinza Titânio",cat:"Special",valor:165.80,tempo:"22 min",dist:"10.5 km",status:"cancelada",data:"2025-01-15T13:05:00",avaliacao:0},
+    {id:"VX-28463",passageiro:"Felipe Antunes",tel:"(11) 90987-6543",origem:"Rua dos Pinheiros, 200 - Pinheiros",destino:"Av. Brasil, 2100 - Jardim América",motorista:"Marcos Vinícius",veiculo:"Lamborghini Huracán EVO",placa:"BRA9C21",cor:"Amarelo Verde",cat:"Superesportivo",valor:580.00,tempo:"28 min",dist:"11.3 km",status:"concluída",data:"2025-01-15T12:50:00",avaliacao:5.0},
+    {id:"VX-28462",passageiro:"Juliana Tavares",tel:"(11) 89876-5432",origem:"Rua Cardoso de Almeida, 92 - Cerqueira César",destino:"Mercado Municipal - Rua da Cantareira, 306",motorista:"Eduardo Nascimento",veiculo:"Audi Q7 55 TFSI",placa:"BRA6E44",cor:"Preto",cat:"Special",valor:134.70,tempo:"19 min",dist:"8.9 km",status:"concluída",data:"2025-01-15T12:30:00",avaliacao:4.5}
+  ];
+
+  const catCores = {Black:"bg-marca-900 text-white",Special:"bg-[#D4AF37] text-marca-900",Superesportivo:"bg-red-500 text-white"};
+  const statusCores = {"em andamento":"bg-blue-100 text-blue-700","concluída":"bg-green-100 text-green-700","pendente":"bg-yellow-100 text-yellow-700","cancelada":"bg-red-100 text-red-700"};
+  const statusCoresDot = {"em andamento":"bg-blue-400","concluída":"bg-green-400","pendente":"bg-yellow-400","cancelada":"bg-red-400"};
+
+  function painel_administrativo_renderizarViagens(lista) {
+    const container = document.getElementById("lista-viagens-painel");
+    const vazio = document.getElementById("vazio-viagens");
+    if (!lista || lista.length === 0) {
+      container.innerHTML = "";
+      vazio.classList.remove("hidden");
+      return;
+    }
+    vazio.classList.add("hidden");
+    container.innerHTML = lista.map(v => {
+      const initials = v.passageiro.split(" ").map(n=>n[0]).join("").slice(0,2).toUpperCase();
+      const catBadge = catCores[v.cat] || "bg-gray-200 text-gray-700";
+      const stBadge = statusCores[v.status] || "bg-gray-100 text-gray-600";
+      const hora = v.data ? v.data.split("T")[1].slice(0,5) : "--:--";
+      const dotColor = statusCoresDot[v.status] || "bg-gray-300";
+      return `<div class="card bg-white rounded-xl border border-gray-100 p-3 cursor-pointer active:scale-[0.98] transition-all" onclick="painel_administrativo_abrirDetalheViagem('${v.id}')">
+        <div class="flex items-start gap-3">
+          <div class="w-9 h-9 rounded-full bg-marca-900 flex items-center justify-center text-white text-[10px] font-bold flex-shrink-0">${initials}</div>
+          <div class="flex-1 min-w-0">
+            <div class="flex items-center gap-1.5 mb-1">
+              <span class="text-xs font-semibold text-marca-900 truncate">${v.passageiro}</span>
+              <span class="text-[9px] text-gray-300 flex-shrink-0">${hora}</span>
+            </div>
+            <div class="flex items-center gap-1 mb-1.5">
+              <span class="text-[9px] px-1.5 py-0.5 rounded-full font-medium ${catBadge}">${v.cat}</span>
+              <span class="flex items-center gap-1 text-[9px] px-1.5 py-0.5 rounded-full font-medium ${stBadge}"><span class="w-1.5 h-1.5 rounded-full ${dotColor}"></span>${v.status}</span>
+            </div>
+            <div class="space-y-0.5">
+              <div class="flex items-center gap-1.5 text-[10px] text-gray-500">
+                <svg class="w-3 h-3 text-green-500 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z"/></svg>
+                <span class="truncate">${v.origem}</span>
+              </div>
+              <div class="flex items-center gap-1.5 text-[10px] text-gray-500">
+                <svg class="w-3 h-3 text-red-400 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z"/></svg>
+                <span class="truncate">${v.destino}</span>
+              </div>
+            </div>
+            <div class="flex items-center justify-between mt-2 pt-2 border-t border-gray-50">
+              <span class="text-xs font-bold text-marca-900">${v.valor > 0 ? 'R$ ' + v.valor.toFixed(2).replace('.',',') : 'Aguardando'}</span>
+              <span class="text-[9px] text-gray-400">${v.id}</span>
+            </div>
+          </div>
+        </div>
+      </div>`;
+    }).join("");
+  }
+
+  window.painel_administrativo_buscarViagens = function() {
+    const termo = (document.getElementById("busca-viagens").value || "").toLowerCase();
+    const statusFiltro = document.getElementById("filtro-status-viagens").value;
+    let lista = dadosViagens;
+    if (termo) {
+      lista = lista.filter(v => v.passageiro.toLowerCase().includes(termo) || v.id.toLowerCase().includes(termo) || v.motorista.toLowerCase().includes(termo) || v.origem.toLowerCase().includes(termo) || v.destino.toLowerCase().includes(termo));
+    }
+    if (statusFiltro && statusFiltro !== "todos") {
+      lista = lista.filter(v => v.status === statusFiltro);
+    }
+    painel_administrativo_renderizarViagens(lista);
+  };
+
+  window.painel_administrativo_abrirDetalheViagem = function(id) {
+    const v = dadosViagens.find(x => x.id === id);
+    if (!v) return;
+    const catBadge = catCores[v.cat] || "bg-gray-200 text-gray-700";
+    const stBadge = statusCores[v.status] || "bg-gray-100 text-gray-600";
+    const initials = v.passageiro.split(" ").map(n=>n[0]).join("").slice(0,2).toUpperCase();
+    const mInit = v.motorista !== "—" ? v.motorista.split(" ").map(n=>n[0]).join("").slice(0,2).toUpperCase() : "??";
+    const html = `<div class="p-5">
+      <div class="flex items-center justify-between mb-5">
+        <div>
+          <p class="text-[10px] text-gray-400">Detalhes da viagem</p>
+          <h3 class="text-base font-display font-bold text-marca-900">${v.id}</h3>
+        </div>
+        <span class="text-xs px-2.5 py-1 rounded-full font-medium ${stBadge}">${v.status}</span>
+      </div>
+      <div class="flex items-center gap-3 mb-4 p-3 bg-gray-50 rounded-xl">
+        <div class="w-10 h-10 rounded-full bg-marca-900 flex items-center justify-center text-white text-xs font-bold">${initials}</div>
+        <div>
+          <p class="text-sm font-semibold text-marca-900">${v.passageiro}</p>
+          <p class="text-[10px] text-gray-400">${v.tel}</p>
+        </div>
+      </div>
+      <div class="space-y-3 mb-4">
+        <div class="flex items-start gap-2.5">
+          <div class="w-5 h-5 rounded-full bg-green-100 flex items-center justify-center mt-0.5 flex-shrink-0"><svg class="w-2.5 h-2.5 text-green-600" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9z"/></svg></div>
+          <div><p class="text-[10px] text-gray-400">Origem</p><p class="text-xs text-marca-900 font-medium">${v.origem}</p></div>
+        </div>
+        <div class="ml-2.5 border-l border-gray-200 h-3"></div>
+        <div class="flex items-start gap-2.5">
+          <div class="w-5 h-5 rounded-full bg-red-100 flex items-center justify-center mt-0.5 flex-shrink-0"><svg class="w-2.5 h-2.5 text-red-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9z"/></svg></div>
+          <div><p class="text-[10px] text-gray-400">Destino</p><p class="text-xs text-marca-900 font-medium">${v.destino}</p></div>
+        </div>
+      </div>
+      <div class="grid grid-cols-3 gap-2 mb-4">
+        <div class="bg-gray-50 rounded-lg p-2 text-center"><p class="text-[9px] text-gray-400">Categoria</p><span class="text-[10px] font-semibold px-1.5 py-0.5 rounded-full ${catBadge}">${v.cat}</span></div>
+        <div class="bg-gray-50 rounded-lg p-2 text-center"><p class="text-[9px] text-gray-400">Distância</p><p class="text-xs font-bold text-marca-900">${v.dist}</p></div>
+        <div class="bg-gray-50 rounded-lg p-2 text-center"><p class="text-[9px] text-gray-400">Tempo</p><p class="text-xs font-bold text-marca-900">${v.tempo}</p></div>
+      </div>
+      <div class="p-3 bg-marca-900/5 rounded-xl mb-4">
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-full bg-marca-900 flex items-center justify-center text-white text-xs font-bold">${mInit}</div>
+          <div class="flex-1">
+            <p class="text-xs font-semibold text-marca-900">${v.motorista}</p>
+            <p class="text-[10px] text-gray-400">${v.veiculo} • ${v.placa}</p>
+            ${v.avaliacao > 0 ? `<div class="flex items-center gap-0.5 mt-0.5"><svg class="w-3 h-3 text-[#D4AF37]" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg><span class="text-[10px] font-medium text-marca-900">${v.avaliacao.toFixed(1)}</span></div>` : ''}
+          </div>
+        </div>
+      </div>
+      <div class="flex items-center justify-between p-3 bg-[#D4AF37]/5 rounded-xl mb-4">
+        <span class="text-xs text-gray-600">Valor da viagem</span>
+        <span class="text-lg font-display font-bold text-[#D4AF37]">${v.valor > 0 ? 'R$ ' + v.valor.toFixed(2).replace('.',',') : '—'}</span>
+      </div>
+      ${v.status === "pendente" ? `<button class="btn w-full bg-marca-900 text-white text-xs font-semibold py-3 rounded-xl active:scale-95 transition-all" onclick="painel_administrativo_aceitarViagem('${v.id}')">Aceitar Viagem</button>` : ''}
+      ${v.status === "em andamento" ? `<button class="btn w-full bg-green-500 text-white text-xs font-semibold py-3 rounded-xl active:scale-95 transition-all" onclick="painel_administrativo_finalizarViagem('${v.id}')">Finalizar Viagem</button>` : ''}
+      ${v.status === "concluída" ? `<button class="btn w-full bg-[#D4AF37]/10 text-[#D4AF37] text-xs font-semibold py-3 rounded-xl active:scale-95 transition-all" onclick="painel_administrativo_verRecibo('${v.id}')">Ver Recibo</button>` : ''}
+    </div>`;
+    abrirModal(html, "Detalhe da Viagem");
+  };
+
+  window.painel_administrativo_aceitarViagem = function(id) {
+    const v = dadosViagens.find(x => x.id === id);
+    if (v) { v.status = "em andamento"; }
+    fecharModal();
+    painel_administrativo_buscarViagens();
+    toast("Viagem aceita com sucesso!", "ok");
+  };
+
+  window.painel_administrativo_finalizarViagem = function(id) {
+    const v = dadosViagens.find(x => x.id === id);
+    if (v) { v.status = "concluída"; }
+    fecharModal();
+    painel_administrativo_buscarViagens();
+    toast("Viagem finalizada!", "ok");
+  };
+
+  window.painel_administrativo_verRecibo = function(id) {
+    mostrarTela("emissao-de-recibo");
+  };
+
+  window.painel_administrativo_abrirFiltro = function(filtro) {
+    const busca = document.getElementById("busca-viagens");
+    const sel = document.getElementById("filtro-status-viagens");
+    if (filtro === "passageiros") {
+      sel.value = "todos"; busca.value = "";
+      painel_administrativo_buscarViagens();
+      toast("Filtro: Passageiros — exibindo todas as viagens", "info");
+    } else if (filtro === "motoristas") {
+      sel.value = "em andamento"; busca.value = "";
+      painel_administrativo_buscarViagens();
+      toast("Filtro: Viagens ativas com motoristas", "info");
+    } else if (filtro === "viagens") {
+      sel.value = "todos"; busca.value = "";
+      painel_administrativo_buscarViagens();
+      toast("Filtro: Todas as viagens", "info");
+    } else if (filtro === "financeiro") {
+      const html = `<div class="p-5">
+        <h3 class="text-base font-display font-bold text-marca-900 mb-4">Resumo Financeiro</h3>
+        <div class="space-y-3 mb-5">
+          <div class="flex justify-between items-center p-3 bg-green-50 rounded-xl"><span class="text-xs text-gray-600">Faturamento do Mês</span><span class="text-sm font-bold text-green-600">R$ 892.450,00</span></div>
+          <div class="flex justify-between items-center p-3 bg-blue-50 rounded-xl"><span class="text-xs text-gray-600">Faturamento Hoje</span><span class="text-sm font-bold text-blue-600">R$ 38.720,00</span></div>
+          <div class="flex justify-between items-center p-3 bg-[#D4AF37]/5 rounded-xl"><span class="text-xs text-gray-600">Comissão (15%)</span><span class="text-sm font-bold text-[#D4AF37]">R$ 133.867,50</span></div>
+          <div class="flex justify-between items-center p-3 bg-gray-50 rounded-xl"><span class="text-xs text-gray-600">Ticket Médio</span><span class="text-sm font-bold text-marca-900">R$ 68,95</span></div>
+        </div>
+        <button class="btn w-full bg-marca-900 text-white text-xs font-semibold py-3 rounded-xl active:scale-95 transition-all" onclick="mostrarTela('emissao-de-recibo')">Ver Relatório Completo</button>
+      </div>`;
+      abrirModal(html, "Financeiro");
+    }
+  };
+
+  window.painel_administrativo_init = function() {
+    const el = document.querySelector('[data-tela="painel-administrativo"]');
+    if (!el) return;
+    painel_administrativo_renderizarViagens(dadosViagens);
+    function updateClock() {
+      const now = new Date();
+      const elc = document.getElementById("relogio-painel");
+      if (elc) elc.textContent = now.toLocaleTimeString("pt-BR", {hour:"2-digit",minute:"2-digit",second:"2-digit"});
+    }
+    updateClock();
+    setInterval(updateClock, 1000);
+  };
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", window.painel_administrativo_init);
+  } else {
+    window.painel_administrativo_init();
+  }
+})();
+</script>
+
     <!-- TELAS -->
 </main>
 
